@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Issy DCA Vault | @Issy100X</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root{
+  --bg:#05070F;
+  --bg2:#090C18;
+  --bg3:#0D1020;
+  --bg4:#111428;
+  --bg5:#151830;
+  --border:rgba(255,255,255,0.04);
+  --border2:rgba(255,255,255,0.08);
+  --border3:rgba(255,255,255,0.12);
+  --green:#00F0A0;
+  --green-dim:rgba(0,240,160,0.06);
+  --green-glow:rgba(0,240,160,0.12);
+  --gold:#FFB800;
+  --gold-dim:rgba(255,184,0,0.08);
+  --blue:#3D8EFF;
+  --purple:#9D6FFF;
+  --red:#FF3D5A;
+  --orange:#FF6B2B;
+  --text:#F0F4FF;
+  --text2:#6B7694;
+  --text3:#2D3352;
+  --mono:'DM Mono',monospace;
+  --display:'Bebas Neue',sans-serif;
+  --body:'Clash Display',sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--body);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Ambient background */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 800px 600px at -10% -10%,rgba(0,240,160,0.035) 0%,transparent 60%),
+    radial-gradient(ellipse 600px 800px at 110% 110%,rgba(157,111,255,0.035) 0%,transparent 60%),
+    radial-gradient(ellipse 400px 400px at 50% 50%,rgba(61,142,255,0.015) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+.app{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:24px 20px;}
+
+/* ── HEADER ── */
+.header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:28px;padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+
+.brand{display:flex;align-items:center;gap:14px;}
+
+.brand-icon{
+  width:50px;height:50px;
+  background:linear-gradient(135deg,var(--green) 0%,#00B8FF 100%);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-size:30px;color:var(--bg);
+  box-shadow:0 0 30px rgba(0,240,160,0.2),0 0 60px rgba(0,240,160,0.08);
+  flex-shrink:0;
+}
+
+.brand-text{}
+.brand-title{
+  font-family:var(--display);font-size:32px;letter-spacing:2px;
+  background:linear-gradient(135deg,#fff 30%,var(--green) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;
+}
+.brand-sub{font-size:11px;color:var(--text2);font-family:var(--mono);margin-top:4px;letter-spacing:0.05em;}
+
+.header-right{text-align:right;}
+.goal-label{font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+.goal-value{font-family:var(--display);font-size:22px;color:var(--gold);letter-spacing:1px;}
+
+/* ── LIVE BAR ── */
+.live-bar{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:20px;padding:10px 16px;
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.live-dot.pulse{animation:pulse 2s infinite;}
+.live-dot.error{background:var(--red);animation:none;}
+.live-dot.loading{background:var(--gold);}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,240,160,0.4);}50%{opacity:0.7;box-shadow:0 0 0 4px rgba(0,240,160,0);}}
+.live-status{font-size:11px;font-family:var(--mono);color:var(--text2);}
+.live-time{font-size:11px;font-family:var(--mono);color:var(--text3);margin-left:auto;}
+.refresh-btn{
+  background:none;border:1px solid var(--border);border-radius:8px;
+  color:var(--text2);font-family:var(--mono);font-size:10px;
+  padding:4px 10px;cursor:pointer;transition:all 0.2s;
+}
+.refresh-btn:hover{border-color:var(--green);color:var(--green);}
+
+/* ── JOURNEY ── */
+.journey{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:18px;padding:24px 28px;margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.journey::after{
+  content:'DCA VAULT';
+  position:absolute;right:-20px;top:50%;transform:translateY(-50%);
+  font-family:var(--display);font-size:120px;letter-spacing:8px;
+  color:rgba(255,255,255,0.012);pointer-events:none;white-space:nowrap;
+}
+.journey-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:18px;}
+.j-main{}
+.j-label{font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;}
+.j-value{font-family:var(--display);font-size:52px;letter-spacing:1px;color:var(--green);line-height:1;}
+.j-center{text-align:center;}
+.j-pct-big{font-family:var(--display);font-size:28px;color:var(--text2);}
+.j-pct-sub{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:4px;}
+.j-right{text-align:right;}
+.j-goal-val{font-family:var(--display);font-size:26px;color:var(--text3);}
+
+.bar-wrap{position:relative;margin-bottom:12px;}
+.bar-track{height:8px;background:var(--bg4);border-radius:4px;overflow:hidden;}
+.bar-fill{
+  height:100%;border-radius:4px;
+  background:linear-gradient(90deg,var(--green),#00CFFF);
+  box-shadow:0 0 12px rgba(0,240,160,0.4);
+  transition:width 0.8s cubic-bezier(0.4,0,0.2,1);
+  min-width:4px;
+}
+
+.milestones{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:6px;}
+
+/* ── SUMMARY CARDS ── */
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+
+.s-card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;padding:16px;position:relative;overflow:hidden;
+  transition:border-color 0.2s,transform 0.2s;
+}
+.s-card:hover{border-color:var(--border2);transform:translateY(-1px);}
+.s-accent{position:absolute;top:0;left:0;right:0;height:2px;}
+.s-label{font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;}
+.s-value{font-family:var(--display);font-size:26px;letter-spacing:0.5px;line-height:1;margin-bottom:5px;}
+.s-sub{font-size:11px;color:var(--text2);font-family:var(--mono);}
+
+/* ── MAIN LAYOUT ── */
+.main{display:grid;grid-template-columns:1fr 340px;gap:16px;}
+
+/* ── CARD ── */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:20px;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.card-title{font-size:10px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.09em;}
+
+/* ── COIN BLOCKS ── */
+.coin-block{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:14px;margin-bottom:12px;overflow:hidden;
+  transition:border-color 0.2s;
+}
+.coin-block:hover{border-color:var(--border2);}
+.coin-block:last-child{margin-bottom:0;}
+
+.coin-header{
+  display:grid;grid-template-columns:auto 1fr auto auto;
+  align-items:center;gap:14px;
+  padding:14px 16px;cursor:pointer;
+  transition:background 0.15s;
+}
+.coin-header:hover{background:rgba(255,255,255,0.015);}
+
+.coin-icon{
+  width:38px;height:38px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+  border:1px solid var(--border);
+}
+
+.coin-info{}
+.coin-name{font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.coin-badge{font-size:9px;font-family:var(--mono);padding:2px 7px;border-radius:20px;}
+.b-stake{background:rgba(0,240,160,0.08);color:var(--green);border:1px solid rgba(0,240,160,0.18);}
+.b-watch{background:rgba(45,51,82,0.6);color:var(--text3);border:1px solid var(--border);}
+.coin-sub{font-size:10px;color:var(--text2);font-family:var(--mono);margin-top:2px;}
+
+.coin-stats{text-align:center;}
+.cs-label{font-size:9px;color:var(--text3);font-family:var(--mono);text-transform:uppercase;margin-bottom:3px;}
+.cs-value{font-size:12px;font-family:var(--mono);color:var(--text2);}
+
+.coin-right{text-align:right;}
+.coin-value{font-size:16px;font-weight:600;font-family:var(--mono);}
+.coin-pnl{font-size:11px;font-family:var(--mono);margin-top:3px;}
+
+/* Price row */
+.coin-price-row{
+  display:flex;align-items:center;gap:10px;
+  padding:0 16px 12px;
+}
+.price-pill{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(0,240,160,0.06);border:1px solid rgba(0,240,160,0.12);
+  border-radius:8px;padding:5px 12px;
+}
+.price-pill-label{font-size:10px;color:var(--text2);font-family:var(--mono);}
+.price-pill-value{font-size:13px;font-family:var(--mono);color:var(--green);font-weight:500;}
+.price-source{font-size:9px;color:var(--text3);font-family:var(--mono);}
+.entries-toggle{
+  background:none;border:none;font-size:10px;font-family:var(--mono);
+  color:var(--text3);cursor:pointer;margin-left:auto;
+  transition:color 0.2s;
+}
+.entries-toggle:hover{color:var(--text2);}
+
+/* DCA entries */
+.coin-entries{padding:0 16px 12px;display:none;}
+.coin-entries.open{display:block;}
+.entry-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:7px 0;border-bottom:1px solid var(--border);
+  font-size:11px;font-family:var(--mono);color:var(--text2);
+  gap:8px;
+}
+.entry-row:last-child{border-bottom:none;}
+.entry-num{color:var(--text3);font-size:10px;}
+.entry-profit{font-size:10px;}
+
+/* Add DCA row */
+.dca-add-row{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;border-top:1px solid var(--border);
+  background:rgba(0,240,160,0.02);
+}
+.dca-label{font-size:10px;color:var(--green);font-family:var(--mono);white-space:nowrap;font-weight:500;}
+.dca-input{
+  flex:1;background:var(--bg4);border:1px solid var(--border);
+  border-radius:7px;color:var(--text);font-family:var(--mono);
+  font-size:11px;padding:6px 9px;outline:none;transition:border-color 0.2s;min-width:0;
+}
+.dca-input:focus{border-color:var(--green);}
+.dca-input::placeholder{color:var(--text3);}
+
+/* Add coin form */
+.add-form{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:14px;padding:16px;margin-top:14px;
+}
+.form-title{font-size:10px;color:var(--green);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px;font-weight:500;}
+.form-grid{display:grid;grid-template-columns:70px 1fr 1fr 1fr;gap:8px;margin-bottom:8px;}
+.form-grid2{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;}
+.fg label{font-size:10px;color:var(--text3);font-family:var(--mono);display:block;margin-bottom:5px;}
+.fg-hint{font-size:9px;color:var(--text3);font-family:var(--mono);margin-top:3px;line-height:1.4;}
+
+input,select{
+  width:100%;background:var(--bg4);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-family:var(--mono);
+  font-size:12px;padding:8px 10px;outline:none;transition:border-color 0.2s;
+}
+input:focus,select:focus{border-color:var(--green);}
+input::placeholder{color:var(--text3);}
+select option{background:var(--bg4);}
+
+.btn{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-family:var(--mono);font-size:11px;transition:all 0.2s;white-space:nowrap;font-weight:500;}
+.btn-primary{background:var(--green);color:var(--bg);}
+.btn-primary:hover{background:#00D490;box-shadow:0 0 16px rgba(0,240,160,0.3);}
+.btn-sm{padding:5px 9px;font-size:10px;}
+.btn-danger{background:rgba(255,61,90,0.08);color:var(--red);border:1px solid rgba(255,61,90,0.15);}
+.btn-danger:hover{background:rgba(255,61,90,0.15);}
+
+/* ── RIGHT PANEL ── */
+.right-panel{display:flex;flex-direction:column;gap:14px;}
+
+/* Targets */
+.target-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 0;border-bottom:1px solid var(--border);
+}
+.target-row:last-child{border-bottom:none;}
+.t-left{}
+.t-coin{font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px;}
+.t-target{font-size:11px;font-family:var(--mono);color:var(--green);margin-top:2px;}
+.t-live{font-size:11px;font-family:var(--mono);color:var(--blue);margin-top:1px;}
+.t-status{font-size:10px;font-family:var(--mono);margin-top:3px;}
+.t-right{display:flex;align-items:center;gap:6px;}
+.t-input{width:95px;padding:5px 8px;font-size:11px;}
+
+.target-add{
+  display:grid;grid-template-columns:60px 1fr 80px auto;
+  gap:7px;margin-top:12px;padding-top:12px;
+  border-top:1px solid var(--border);align-items:end;
+}
+
+/* Staking yields */
+.yield-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.yield-row:last-child{border-bottom:none;}
+.y-left{display:flex;align-items:center;gap:9px;}
+.y-icon{
+  width:30px;height:30px;border-radius:8px;
+  background:var(--bg4);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:13px;
+}
+.y-name{font-size:13px;font-weight:600;}
+.y-platform{font-size:10px;color:var(--text3);font-family:var(--mono);}
+.y-apy{font-size:13px;font-weight:600;font-family:var(--mono);color:var(--green);}
+.y-earned{font-size:10px;color:var(--text2);font-family:var(--mono);margin-top:1px;}
+
+.yield-add{
+  display:grid;grid-template-columns:1fr 1fr 55px auto;
+  gap:7px;margin-top:12px;padding-top:12px;
+  border-top:1px solid var(--border);align-items:end;
+}
+
+/* Journal */
+.week-item{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;padding:12px;margin-bottom:8px;
+}
+.week-item:last-child{margin-bottom:0;}
+.w-week{font-size:10px;color:var(--green);font-family:var(--mono);margin-bottom:4px;font-weight:500;}
+.w-text{font-size:12px;color:var(--text2);line-height:1.5;}
+.week-form{display:flex;gap:8px;margin-top:12px;}
+
+.empty{
+  text-align:center;padding:24px;
+  color:var(--text3);font-family:var(--mono);font-size:11px;
+}
+.empty-icon{font-size:28px;margin-bottom:8px;}
+
+/* Footer */
+.footer{
+  margin-top:20px;padding-top:16px;
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:10px;color:var(--text3);font-family:var(--mono);
+  flex-wrap:wrap;gap:8px;
+}
+.footer-brand{
+  background:linear-gradient(135deg,var(--green),var(--blue));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:700;
+}
+
+/* Dot colors */
+.dot-btc{background:#F7931A;}
+.dot-sol{background:#9945FF;}
+.dot-hype{background:#00E8A2;}
+.dot-green{background:var(--green);}
+.dot-gold{background:var(--gold);}
+.dot-blue{background:var(--blue);}
+.dot-purple{background:var(--purple);}
+.dot-red{background:var(--red);}
+.dot-gray{background:var(--text3);}
+
+/* Icon bg colors */
+.icon-btc{background:rgba(247,147,26,0.12);border-color:rgba(247,147,26,0.2);}
+.icon-sol{background:rgba(153,69,255,0.12);border-color:rgba(153,69,255,0.2);}
+.icon-hype{background:rgba(0,232,162,0.1);border-color:rgba(0,232,162,0.18);}
+
+/* Responsive */
+@media(max-width:800px){
+  .main{grid-template-columns:1fr;}
+  .summary{grid-template-columns:repeat(2,1fr);}
+  .form-grid{grid-template-columns:1fr 1fr;}
+  .form-grid2{grid-template-columns:1fr;}
+  .target-add{grid-template-columns:1fr 1fr;}
+}
+
+/* Coin block dot */
+.cb-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;display:inline-block;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon">I</div>
+      <div class="brand-text">
+        <div class="brand-title">ISSY DCA VAULT</div>
+        <div class="brand-sub">@Issy100X · accumulate · stake · repeat 🔐</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="goal-label">The Mission</div>
+      <div class="goal-value">$0 → $1,000,000</div>
+    </div>
+  </div>
+
+  <!-- Live bar -->
+  <div class="live-bar">
+    <div class="live-dot loading pulse" id="live-dot"></div>
+    <span class="live-status" id="live-status">Fetching live prices from CoinGecko...</span>
+    <span class="live-time" id="live-time"></span>
+    <button class="refresh-btn" onclick="fetchPrices()">↻ Refresh</button>
+  </div>
+
+  <!-- Journey -->
+  <div class="journey">
+    <div class="journey-row">
+      <div class="j-main">
+        <div class="j-label">Total DCA Portfolio Value</div>
+        <div class="j-value" id="j-total">$0.00</div>
+      </div>
+      <div class="j-center">
+        <div class="j-label">Progress to $1M</div>
+        <div class="j-pct-big" id="j-pct">0.0000%</div>
+        <div class="j-pct-sub" id="j-invested-sub">$0 invested</div>
+      </div>
+      <div class="j-right">
+        <div class="j-label">Goal</div>
+        <div class="j-goal-val">$1,000,000 🏆</div>
+      </div>
+    </div>
+    <div class="bar-wrap">
+      <div class="bar-track"><div class="bar-fill" id="j-bar" style="width:0%"></div></div>
+    </div>
+    <div class="milestones">
+      <span>$0</span><span>$10K</span><span>$50K</span><span>$100K</span><span>$250K</span><span>$500K</span><span>$1M 🏆</span>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary">
+    <div class="s-card">
+      <div class="s-accent" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+      <div class="s-label">Portfolio Value</div>
+      <div class="s-value" id="s-total" style="color:var(--green)">$0</div>
+      <div class="s-sub" id="s-assets">0 assets</div>
+    </div>
+    <div class="s-card">
+      <div class="s-accent" style="background:linear-gradient(90deg,var(--blue),transparent)"></div>
+      <div class="s-label">Total Invested</div>
+      <div class="s-value" id="s-invested" style="color:var(--blue)">$0</div>
+      <div class="s-sub">cost basis</div>
+    </div>
+    <div class="s-card">
+      <div class="s-accent" style="background:linear-gradient(90deg,var(--gold),transparent)"></div>
+      <div class="s-label">Unrealized P&L</div>
+      <div class="s-value" id="s-pnl" style="color:var(--text2)">$0</div>
+      <div class="s-sub" id="s-pnl-pct">vs cost basis</div>
+    </div>
+    <div class="s-card">
+      <div class="s-accent" style="background:linear-gradient(90deg,var(--purple),transparent)"></div>
+      <div class="s-label">Best Performer</div>
+      <div class="s-value" id="s-best" style="color:var(--purple)">—</div>
+      <div class="s-sub" id="s-best-sub">—</div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Left: DCA Holdings -->
+    <div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📦 DCA Holdings — Smart Accumulator</span>
+        </div>
+
+        <div id="coins-wrap">
+          <div class="empty" id="empty-coins">
+            <div class="empty-icon">🏦</div>
+            Your DCA positions will appear here
+          </div>
+        </div>
+
+        <!-- Add coin form -->
+        <div class="add-form">
+          <div class="form-title">+ Add / DCA into Asset</div>
+          <div class="form-grid">
+            <div class="fg">
+              <label>Ticker</label>
+              <input id="f-coin" type="text" placeholder="BTC" style="text-transform:uppercase">
+            </div>
+            <div class="fg">
+              <label>CoinGecko ID</label>
+              <input id="f-cgid" type="text" placeholder="bitcoin">
+              <div class="fg-hint">auto-fills for major coins</div>
+            </div>
+            <div class="fg">
+              <label>Amount</label>
+              <input id="f-amount" type="number" placeholder="0.1">
+            </div>
+            <div class="fg">
+              <label>Entry Price ($)</label>
+              <input id="f-entry" type="number" placeholder="50000">
+            </div>
+          </div>
+          <div class="form-grid2">
+            <div class="fg">
+              <label>Status</label>
+              <select id="f-status">
+                <option value="stake">⚡ Staked / Active</option>
+                <option value="watch">⏳ Watching / Waiting</option>
+              </select>
+            </div>
+            <div class="fg">
+              <label>Notes (optional)</label>
+              <input id="f-notes" type="text" placeholder="e.g. staked on Alphatick">
+            </div>
+            <div class="fg" style="display:flex;align-items:flex-end;">
+              <button class="btn btn-primary" onclick="addCoin()" style="width:100%">Add ＋</button>
+            </div>
+          </div>
+          <div style="margin-top:10px;font-size:9px;color:var(--text3);font-family:var(--mono);line-height:1.7;">
+            💡 Common IDs: bitcoin · solana · hyperliquid · binancecoin · ethereum · jupiter-exchange-solana · sui · bittensor · aerodrome-finance · pepe · bonk · dogwifcoin
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel -->
+    <div class="right-panel">
+
+      <!-- DCA Targets -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🎯 DCA Price Targets</span>
+          <span style="font-size:9px;color:var(--text3);font-family:var(--mono);">live prices</span>
+        </div>
+        <div id="targets-wrap">
+          <div style="font-size:11px;color:var(--text3);font-family:var(--mono);padding:8px 0;">Loading targets...</div>
+        </div>
+        <div class="target-add">
+          <div class="fg"><label>Coin</label><input id="nt-coin" type="text" placeholder="SOL" style="text-transform:uppercase"></div>
+          <div class="fg"><label>CoinGecko ID</label><input id="nt-cgid" type="text" placeholder="solana"></div>
+          <div class="fg"><label>Target $</label><input id="nt-price" type="number" placeholder="60"></div>
+          <div class="fg" style="display:flex;align-items:flex-end;"><button class="btn btn-primary" onclick="addTarget()">＋</button></div>
+        </div>
+      </div>
+
+      <!-- Staking Yields -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">⚡ Staking Yields</span>
+        </div>
+        <div id="yields-wrap">
+          <div class="empty" style="padding:14px;">
+            <div style="font-size:22px;margin-bottom:6px;">💰</div>
+            Add your staking positions
+          </div>
+        </div>
+        <div class="yield-add">
+          <div class="fg"><label>Coin</label><input id="y-coin" type="text" placeholder="SOL" style="text-transform:uppercase"></div>
+          <div class="fg"><label>Platform</label><input id="y-platform" type="text" placeholder="Marinade"></div>
+          <div class="fg"><label>APY%</label><input id="y-apy" type="number" placeholder="6.1"></div>
+          <div class="fg" style="display:flex;align-items:flex-end;"><button class="btn btn-primary" onclick="addYield()">＋</button></div>
+        </div>
+      </div>
+
+      <!-- Weekly Journal -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">📅 DCA Journal</span>
+        </div>
+        <div id="weeks-wrap">
+          <div class="empty" style="padding:14px;">
+            <div style="font-size:20px;margin-bottom:6px;">📝</div>
+            Log your weekly DCA moves
+          </div>
+        </div>
+        <div class="week-form">
+          <input id="w-input" type="text" placeholder="e.g. DCA'd 0.05 BTC at $48,500...">
+          <button class="btn btn-primary" onclick="addWeek()">Log</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Updated: <span id="last-updated">—</span></span>
+    <span class="footer-brand">ISSY DCA VAULT</span>
+    <span>@Issy100X · Prices via CoinGecko · Not financial advice</span>
+  </div>
+
+</div>
+
+<script>
+// ─── Constants ────────────────────────────────────────────────
+const COLORS = ['dot-green','dot-gold','dot-blue','dot-purple','dot-red','dot-gray'];
+const ICONS = {
+  'BTC':'₿','SOL':'◎','ETH':'Ξ','BNB':'⬡','HYPE':'⚡',
+  'JUP':'🟣','TAO':'🔴','AERO':'🔷','SUI':'💧','PEPE':'🐸',
+  'BONK':'🐶','WIF':'🐕','PENGU':'🐧','MSOL':'🟢','JITOSOL':'🟢'
+};
+const ICON_BG = {
+  'BTC':'icon-btc','SOL':'icon-sol','HYPE':'icon-hype',
+};
+const CG_AUTO = {
+  'BTC':'bitcoin','SOL':'solana','ETH':'ethereum','BNB':'binancecoin',
+  'HYPE':'hyperliquid','JUP':'jupiter-exchange-solana','TAO':'bittensor',
+  'AERO':'aerodrome-finance','SUI':'sui','PEPE':'pepe','BONK':'bonk',
+  'WIF':'dogwifcoin','PENGU':'pudgy-penguins','SPX':'spx6900',
+  'FARTCOIN':'fartcoin','MSOL':'msol','JITOSOL':'jito-staked-sol',
+  'VVV':'venice-finance','PUMP':'pump-fun'
+};
+
+// ─── State ────────────────────────────────────────────────────
+let livePrices = {};
+let priceTimer = null;
+
+let S = {
+  coins: {},
+  colorIdx: 0,
+  targets: [
+    { coin:'BTC', cgid:'bitcoin', target:50000 },
+    { coin:'SOL', cgid:'solana', target:60 },
+    { coin:'HYPE', cgid:'hyperliquid', target:27.5 },
+    { coin:'BNB', cgid:'binancecoin', target:500 },
+    { coin:'JUP', cgid:'jupiter-exchange-solana', target:0.12 },
+  ],
+  yields: [],
+  weeks: [],
+  weekNum: 1,
+  openBuys: {},
+};
+
+function save() { try { localStorage.setItem('issy_dca_v1', JSON.stringify(S)); } catch(e){} }
+function load() { try { const d = localStorage.getItem('issy_dca_v1'); if(d) S = JSON.parse(d); } catch(e){} }
+
+// ─── Price Fetching ───────────────────────────────────────────
+async function fetchPrices() {
+  const dot = document.getElementById('live-dot');
+  const status = document.getElementById('live-status');
+  dot.className = 'live-dot loading pulse';
+  status.textContent = 'Fetching live prices...';
+
+  const ids = new Set();
+  Object.values(S.coins).forEach(c => { if(c.cgid) ids.add(c.cgid); });
+  S.targets.forEach(t => { if(t.cgid) ids.add(t.cgid); });
+
+  if (!ids.size) {
+    dot.className = 'live-dot pulse';
+    status.textContent = 'Add coins to see live prices';
+    renderAll();
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${[...ids].join(',')}&vs_currencies=usd`);
+    if (!res.ok) throw new Error('API ' + res.status);
+    const data = await res.json();
+    Object.entries(data).forEach(([id, v]) => { livePrices[id] = v.usd; });
+    Object.values(S.coins).forEach(c => { if(c.cgid && livePrices[c.cgid]) c.current = livePrices[c.cgid]; });
+    dot.className = 'live-dot pulse';
+    status.textContent = 'Live prices — updates every 60s ✓';
+    document.getElementById('live-time').textContent = new Date().toLocaleTimeString('en-GB');
+    save(); renderAll();
+  } catch(e) {
+    dot.className = 'live-dot error';
+    status.textContent = 'Price fetch failed — showing saved data';
+    renderAll();
+  }
+}
+
+function startTimer() {
+  if(priceTimer) clearInterval(priceTimer);
+  priceTimer = setInterval(fetchPrices, 60000);
+}
+
+// ─── Helpers ─────────────────────────────────────────────────
+function coinStats(c) {
+  const totalAmt = c.buys.reduce((a,b) => a + b.amount, 0);
+  const totalCost = c.buys.reduce((a,b) => a + b.amount * b.entry, 0);
+  const avgEntry = totalAmt > 0 ? totalCost / totalAmt : 0;
+  const value = totalAmt * (c.current || 0);
+  const pnl = value - totalCost;
+  const pnlPct = totalCost > 0 ? (pnl / totalCost * 100).toFixed(1) : '0.0';
+  return { totalAmt, totalCost, avgEntry, value, pnl, pnlPct };
+}
+
+function fmt(n, dec=2) { return '$' + Math.abs(n).toLocaleString(undefined, {maximumFractionDigits:dec}); }
+function fmtP(n, dec=6) { return '$' + n.toLocaleString(undefined, {maximumFractionDigits:dec}); }
+function cgId(ticker) { return CG_AUTO[ticker.toUpperCase()] || ''; }
+
+// ─── Coins ────────────────────────────────────────────────────
+function addCoin() {
+  const coin = document.getElementById('f-coin').value.trim().toUpperCase();
+  let cg = document.getElementById('f-cgid').value.trim().toLowerCase();
+  const amount = parseFloat(document.getElementById('f-amount').value);
+  const entry = parseFloat(document.getElementById('f-entry').value);
+  const status = document.getElementById('f-status').value;
+  const notes = document.getElementById('f-notes').value.trim();
+
+  if (!coin || isNaN(amount) || isNaN(entry)) return alert('Please fill Ticker, Amount and Entry Price');
+  if (!cg) cg = cgId(coin);
+
+  if (!S.coins[coin]) {
+    S.coins[coin] = { buys:[], current:0, cgid:cg, status, notes, color: COLORS[S.colorIdx++ % COLORS.length] };
+  }
+  S.coins[coin].buys.push({ id:Date.now(), amount, entry, date: new Date().toLocaleDateString('en-GB') });
+  S.coins[coin].status = status;
+  if (cg) S.coins[coin].cgid = cg;
+  if (notes) S.coins[coin].notes = notes;
+
+  save(); fetchPrices();
+  ['f-coin','f-cgid','f-amount','f-entry','f-notes'].forEach(id => document.getElementById(id).value = '');
+}
+
+function addBuy(coin) {
+  const amt = parseFloat(document.getElementById('dca-amt-' + coin).value);
+  const ent = parseFloat(document.getElementById('dca-ent-' + coin).value);
+  if (isNaN(amt) || isNaN(ent)) return alert('Fill amount and entry price');
+  S.coins[coin].buys.push({ id:Date.now(), amount:amt, entry:ent, date: new Date().toLocaleDateString('en-GB') });
+  save(); renderAll();
+  document.getElementById('dca-amt-' + coin).value = '';
+  document.getElementById('dca-ent-' + coin).value = '';
+}
+
+function delBuy(coin, id) {
+  S.coins[coin].buys = S.coins[coin].buys.filter(b => b.id !== id);
+  if (!S.coins[coin].buys.length) delete S.coins[coin];
+  save(); renderAll();
+}
+
+function delCoin(coin) {
+  if (confirm('Remove ' + coin + ' and all its DCA entries?')) {
+    delete S.coins[coin];
+    save(); renderAll();
+  }
+}
+
+function toggleEntries(coin) {
+  S.openBuys[coin] = !S.openBuys[coin];
+  const el = document.getElementById('entries-' + coin);
+  const btn = document.getElementById('toggle-' + coin);
+  if (el) el.classList.toggle('open', !!S.openBuys[coin]);
+  if (btn) btn.textContent = S.openBuys[coin] ? '▲ hide' : `▼ ${S.coins[coin].buys.length} entries`;
+}
+
+function renderCoins() {
+  const wrap = document.getElementById('coins-wrap');
+  const keys = Object.keys(S.coins);
+
+  if (!keys.length) {
+    wrap.innerHTML = '<div class="empty" id="empty-coins"><div class="empty-icon">🏦</div>Your DCA positions will appear here</div>';
+    return;
+  }
+
+  wrap.innerHTML = keys.map(coin => {
+    const c = S.coins[coin];
+    const st = coinStats(c);
+    const pnlPos = st.pnl >= 0;
+    const pnlColor = pnlPos ? 'var(--green)' : 'var(--red)';
+    const badge = c.status === 'stake' ? '<span class="coin-badge b-stake">⚡ Staked</span>' : '<span class="coin-badge b-watch">⏳ Watching</span>';
+    const icon = ICONS[coin] || '💎';
+    const iconBg = ICON_BG[coin] || '';
+    const isOpen = !!S.openBuys[coin];
+    const livePrice = c.current ? fmtP(c.current) : '—';
+    const currentPct = st.avgEntry > 0 && c.current ? ((c.current - st.avgEntry) / st.avgEntry * 100).toFixed(1) : null;
+
+    return `<div class="coin-block">
+      <div class="coin-header" onclick="toggleEntries('${coin}')">
+        <div class="coin-icon ${iconBg}">${icon}</div>
+        <div class="coin-info">
+          <div class="coin-name">
+            <span class="cb-dot ${c.color}"></span>
+            ${coin} ${badge}
+          </div>
+          <div class="coin-sub">${c.notes || 'No notes'} · ${c.buys.length} DCA ${c.buys.length === 1 ? 'entry' : 'entries'}</div>
+        </div>
+        <div class="coin-stats">
+          <div class="cs-label">Avg Entry</div>
+          <div class="cs-value">${fmtP(st.avgEntry)}</div>
+          <div class="cs-label" style="margin-top:4px;">Total Held</div>
+          <div class="cs-value">${st.totalAmt.toLocaleString(undefined,{maximumFractionDigits:6})}</div>
+        </div>
+        <div class="coin-right">
+          <div class="coin-value">${fmt(st.value)}</div>
+          <div class="coin-pnl" style="color:${pnlColor};">
+            ${pnlPos?'+':''}${fmt(st.pnl)} (${parseFloat(st.pnlPct)>=0?'+':''}${st.pnlPct}%)
+          </div>
+        </div>
+      </div>
+
+      <div class="coin-price-row">
+        <div class="price-pill">
+          <span class="price-pill-label">Live:</span>
+          <span class="price-pill-value">${livePrice}</span>
+          ${currentPct !== null ? `<span style="font-size:10px;font-family:var(--mono);color:${parseFloat(currentPct)>=0?'var(--green)':'var(--red)'};">(${parseFloat(currentPct)>=0?'+':''}${currentPct}%)</span>` : ''}
+        </div>
+        <span class="price-source">${c.cgid ? '🟢 CoinGecko' : '⚪ manual'}</span>
+        <button class="entries-toggle" id="toggle-${coin}" onclick="event.stopPropagation();toggleEntries('${coin}')">
+          ${isOpen ? '▲ hide' : `▼ ${c.buys.length} entries`}
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();delCoin('${coin}')">Remove</button>
+      </div>
+
+      <div class="coin-entries ${isOpen?'open':''}" id="entries-${coin}">
+        ${c.buys.map((b,i) => {
+          const ep = c.current ? ((c.current - b.entry) / b.entry * 100).toFixed(1) : null;
+          return `<div class="entry-row">
+            <span class="entry-num">#${i+1}</span>
+            <span>${b.date}</span>
+            <span>${b.amount.toLocaleString(undefined,{maximumFractionDigits:6})} ${coin}</span>
+            <span>@ ${fmtP(b.entry)}</span>
+            <span>= ${fmt(b.amount * b.entry)}</span>
+            ${ep !== null ? `<span class="entry-profit" style="color:${parseFloat(ep)>=0?'var(--green)':'var(--red)'};">${parseFloat(ep)>=0?'+':''}${ep}%</span>` : ''}
+            <button class="btn btn-danger btn-sm" onclick="delBuy('${coin}',${b.id})">✕</button>
+          </div>`;
+        }).join('')}
+      </div>
+
+      <div class="dca-add-row">
+        <span class="dca-label">+ DCA:</span>
+        <input class="dca-input" id="dca-amt-${coin}" type="number" placeholder="Amount">
+        <input class="dca-input" id="dca-ent-${coin}" type="number" placeholder="Entry $">
+        <button class="btn btn-primary btn-sm" onclick="addBuy('${coin}')">Add Buy</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Targets ─────────────────────────────────────────────────
+function addTarget() {
+  const coin = document.getElementById('nt-coin').value.trim().toUpperCase();
+  let cg = document.getElementById('nt-cgid').value.trim().toLowerCase();
+  const target = parseFloat(document.getElementById('nt-price').value);
+  if (!coin || isNaN(target)) return;
+  if (!cg) cg = cgId(coin);
+  S.targets.push({ coin, cgid:cg, target });
+  save(); fetchPrices();
+  ['nt-coin','nt-cgid','nt-price'].forEach(id => document.getElementById(id).value = '');
+}
+
+function delTarget(i) { S.targets.splice(i, 1); save(); renderTargets(); }
+
+function renderTargets() {
+  const el = document.getElementById('targets-wrap');
+  if (!S.targets.length) { el.innerHTML = '<div style="font-size:11px;color:var(--text3);font-family:var(--mono);padding:8px 0;">No targets set</div>'; return; }
+  el.innerHTML = S.targets.map((t, i) => {
+    const liveP = t.cgid ? livePrices[t.cgid] : null;
+    let statusTxt = '', statusColor = 'var(--text3)';
+    if (liveP !== undefined && liveP !== null) {
+      if (liveP <= t.target) { statusTxt = '🟢 BUY ZONE — DCA NOW!'; statusColor = 'var(--green)'; }
+      else { const d = ((liveP - t.target) / liveP * 100).toFixed(1); statusTxt = `↓ ${d}% to target`; statusColor = 'var(--gold)'; }
+    }
+    const icon = ICONS[t.coin] || '💎';
+    return `<div class="target-row">
+      <div class="t-left">
+        <div class="t-coin">${icon} ${t.coin}</div>
+        <div class="t-target">Target: ${fmtP(t.target)}</div>
+        ${liveP !== null && liveP !== undefined ? `<div class="t-live">Live: ${fmtP(liveP)}</div>` : ''}
+        <div class="t-status" style="color:${statusColor};">${statusTxt}</div>
+      </div>
+      <div class="t-right">
+        <button class="btn btn-danger btn-sm" onclick="delTarget(${i})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Yields ──────────────────────────────────────────────────
+function addYield() {
+  const coin = document.getElementById('y-coin').value.trim().toUpperCase();
+  const platform = document.getElementById('y-platform').value.trim();
+  const apy = parseFloat(document.getElementById('y-apy').value);
+  if (!coin || isNaN(apy)) return;
+  S.yields.push({ id:Date.now(), coin, platform, apy });
+  save(); renderYields();
+  ['y-coin','y-platform','y-apy'].forEach(id => document.getElementById(id).value = '');
+}
+
+function delYield(id) { S.yields = S.yields.filter(y => y.id !== id); save(); renderYields(); }
+
+function renderYields() {
+  const el = document.getElementById('yields-wrap');
+  if (!S.yields.length) {
+    el.innerHTML = '<div class="empty" style="padding:14px;"><div style="font-size:22px;margin-bottom:6px;">💰</div>Add your staking positions</div>';
+    return;
+  }
+  el.innerHTML = S.yields.map(y => {
+    const c = S.coins[y.coin];
+    const st = c ? coinStats(c) : null;
+    const yearly = st ? (st.value * y.apy / 100).toFixed(2) : null;
+    return `<div class="yield-row">
+      <div class="y-left">
+        <div class="y-icon">${ICONS[y.coin] || '💎'}</div>
+        <div>
+          <div class="y-name">${y.coin}</div>
+          <div class="y-platform">${y.platform || '—'}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="text-align:right;">
+          <div class="y-apy">${y.apy}% APY</div>
+          ${yearly ? `<div class="y-earned">~${fmt(parseFloat(yearly))}/yr</div>` : ''}
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="delYield(${y.id})">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ─── Weeks ───────────────────────────────────────────────────
+function addWeek() {
+  const text = document.getElementById('w-input').value.trim();
+  if (!text) return;
+  S.weeks.unshift({ id:Date.now(), week:S.weekNum++, text, date: new Date().toLocaleDateString('en-GB') });
+  save(); renderWeeks();
+  document.getElementById('w-input').value = '';
+}
+
+function renderWeeks() {
+  const el = document.getElementById('weeks-wrap');
+  if (!S.weeks.length) {
+    el.innerHTML = '<div class="empty" style="padding:14px;"><div style="font-size:20px;margin-bottom:6px;">📝</div>Log your weekly DCA moves</div>';
+    return;
+  }
+  el.innerHTML = S.weeks.slice(0,5).map(w => `
+    <div class="week-item">
+      <div class="w-week">Week ${w.week} · ${w.date}</div>
+      <div class="w-text">${w.text}</div>
+    </div>`).join('');
+}
+
+// ─── Summary ─────────────────────────────────────────────────
+function renderSummary() {
+  const keys = Object.keys(S.coins);
+  let totalVal = 0, totalInv = 0;
+  keys.forEach(k => { const st = coinStats(S.coins[k]); totalVal += st.value; totalInv += st.totalCost; });
+  const pnl = totalVal - totalInv;
+  const pnlPct = totalInv > 0 ? (pnl / totalInv * 100).toFixed(1) : '0.0';
+  const pct = Math.min(totalVal / 1000000 * 100, 100);
+
+  document.getElementById('j-total').textContent = fmt(totalVal);
+  document.getElementById('j-pct').textContent = pct.toFixed(4) + '%';
+  document.getElementById('j-bar').style.width = Math.max(pct, 0.05) + '%';
+  document.getElementById('j-invested-sub').textContent = fmt(totalInv) + ' invested';
+
+  document.getElementById('s-total').textContent = fmt(totalVal, 0);
+  document.getElementById('s-assets').textContent = keys.length + ' asset' + (keys.length !== 1 ? 's' : '');
+  document.getElementById('s-invested').textContent = fmt(totalInv, 0);
+
+  const pnlEl = document.getElementById('s-pnl');
+  pnlEl.textContent = (pnl >= 0 ? '+' : '-') + fmt(Math.abs(pnl), 0);
+  pnlEl.style.color = pnl >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('s-pnl-pct').textContent = (parseFloat(pnlPct) >= 0 ? '+' : '') + pnlPct + '% unrealized';
+
+  if (keys.length) {
+    let best = null, bestPct = -Infinity;
+    keys.forEach(k => { const st = coinStats(S.coins[k]); const p = parseFloat(st.pnlPct); if(p > bestPct){bestPct=p;best=k;} });
+    document.getElementById('s-best').textContent = best || '—';
+    document.getElementById('s-best-sub').textContent = best ? (bestPct >= 0 ? '+' : '') + bestPct + '% gain' : '—';
+  } else {
+    document.getElementById('s-best').textContent = '—';
+    document.getElementById('s-best-sub').textContent = '—';
+  }
+
+  document.getElementById('last-updated').textContent = new Date().toLocaleString('en-GB');
+}
+
+// ─── Render All ──────────────────────────────────────────────
+function renderAll() {
+  renderCoins(); renderTargets(); renderYields(); renderWeeks(); renderSummary();
+}
+
+// ─── Init ────────────────────────────────────────────────────
+load(); renderAll(); fetchPrices(); startTimer();
+</script>
+</body>
+</html>
